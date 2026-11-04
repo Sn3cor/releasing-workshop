@@ -26,7 +26,7 @@ async function loadTodos() {
       priorityBadge.style.color = "green"
     }
     else if (priorityBadge.textContent === "medium") {
-      priorityBadge.style.color = "yellow"
+      priorityBadge.style.color = "orange"
     }
     if (priorityBadge.textContent === "high") {
       priorityBadge.style.color = "red"
