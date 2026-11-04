@@ -22,6 +22,15 @@ async function loadTodos() {
 
     const priorityBadge = document.createElement("span");
     priorityBadge.textContent = todo.priority
+    if (priorityBadge.textContent === "low") {
+      priorityBadge.style.color = "green"
+    }
+    else if (priorityBadge.textContent === "medium") {
+      priorityBadge.style.color = "yellow"
+    }
+    if (priorityBadge.textContent === "high") {
+      priorityBadge.style.color = "red"
+    }
     priorityBadge.classList.add("badge")
 
     const deleteBtn = document.createElement("button");
