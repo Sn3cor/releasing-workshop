@@ -1,5 +1,6 @@
 const form = document.getElementById("todo-form");
 const titleInput = document.getElementById("todo-title");
+const prioritySelect = document.getElementById("todo-priority")
 const list = document.getElementById("todo-list");
 
 async function loadTodos() {
@@ -19,20 +20,24 @@ async function loadTodos() {
     span.textContent = todo.title;
     if (todo.done) span.classList.add("done");
 
+    const priorityBadge = document.createElement("span");
+    span.textContent = todo.priority
+    span.classList.add("badge")
+
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.addEventListener("click", () => deleteTodo(todo.id));
 
-    li.append(checkbox, span, deleteBtn);
+    li.append(checkbox, span, priorityBadge, deleteBtn);
     list.append(li);
   }
 }
 
-async function addTodo(title) {
+async function addTodo(title, priority) {
   await fetch(`${API_URL}/todos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title }),
+    body: JSON.stringify({ title, priority }),
   });
   await loadTodos();
 }
@@ -50,8 +55,9 @@ async function deleteTodo(id) {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const title = titleInput.value.trim();
-  if (!title) return;
-  addTodo(title);
+  const priority = prioritySelect.value.trim()
+  if (!title || !priority) return;
+  addTodo(title, priority);
   titleInput.value = "";
 });
 

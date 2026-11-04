@@ -14,11 +14,12 @@ engine = create_engine(DATABASE_URL, echo=True)
 class Todo(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     title: str
+    priority: str
     done: bool = False
-
 
 class TodoCreate(SQLModel):
     title: str
+    priority: str
 
 
 app = FastAPI(title="Todo API")
@@ -50,7 +51,7 @@ def list_todos():
 @app.post("/todos", response_model=Todo)
 def create_todo(todo: TodoCreate):
     with Session(engine) as session:
-        db_todo = Todo(title=todo.title)
+        db_todo = Todo(title=todo.title, priority=todo.priority)
         session.add(db_todo)
         session.commit()
         session.refresh(db_todo)
