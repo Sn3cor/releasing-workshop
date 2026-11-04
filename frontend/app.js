@@ -21,8 +21,8 @@ async function loadTodos() {
     if (todo.done) span.classList.add("done");
 
     const priorityBadge = document.createElement("span");
-    span.textContent = todo.priority
-    span.classList.add("badge")
+    priorityBadge.textContent = todo.priority
+    priorityBadge.classList.add("badge")
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
